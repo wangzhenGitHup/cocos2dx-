@@ -297,6 +297,11 @@ void RichText::selectMinValue(int& outValue, int& inputValue)
 
 void RichText::adjustStringComping(int& leftLength, float& leftWidth, int findNewLinePos, std::string& leftStr, std::string& curText, Label* textRenderer)
 {
+	if (leftLength <= 0 || leftStr.empty() || curText.empty())
+	{
+		return;
+	}
+
 	textRenderer->setString(leftStr);
 	float newTextWidth = textRenderer->getContentSize().width;
 	bool isOver = (newTextWidth + 12.0f) > m_fLimitMaxWidth;
@@ -423,7 +428,7 @@ void RichText::handleTextRenderer(const std::string& text, const std::string& fo
     }
     float textRendererWidth = textRenderer->getContentSize().width;
     _leftSpaceWidth -= textRendererWidth;
-	// add by wangzhen
+	// add by zhong
 	int findNewLinePos = text.find("\n");
 	if (std::string::npos != findNewLinePos) {
 		// 计算\n在utf中第几个字符
@@ -677,7 +682,7 @@ void RichText::formarRenderers()
         
         for (size_t i=0; i<_elementRenders.size(); i++)
         {
-			// add by wangzhen
+			// add by zhong
 			if (0 != i) {
 				newContentSizeHeight += _verticalSpace;
 			}
